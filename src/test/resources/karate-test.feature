@@ -5,28 +5,28 @@ Feature: Test de API súper simple
 
   @id:1 @ObtenerTodosPersonajes
   Scenario: Verificar que un endpoint público responde 200
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters'
+    Given url 'http://localhost:8080/testuser/api/characters'
     When method GET
     Then status 200
     And print response
 
   @id:2 @ObtenerPersonajePorID
   Scenario: Verificar que retorna el personaje correcto por ID
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters'
+    Given url 'http://localhost:8080/testuser/api/characters'
     When method GET
     Then status 200
     And match response.id == 30
 
   @id:3 @NoEncuetraPersonajePorID
   Scenario: No encuentra personaje dado el ID
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters/999'
+    Given url 'http://localhost:8080/testuser/api/characters/999'
     When method GET
     Then status 404
     And match response.message == "Character not found"
 
   @id:4 @EscenarioCreaPersonaje
   Scenario: Crea nuevo personaje
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters'
+    Given url 'http://localhost:8080/testuser/api/characters'
     And request
     """
     {
@@ -54,7 +54,7 @@ Feature: Test de API súper simple
 
   @id:5 @EscenarioCreaPersonajeDuplicado
   Scenario: Intenta crear personaje con nombre duplicado
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters'
+    Given url 'http://localhost:8080/testuser/api/characters'
     And request
     """
     {
@@ -76,7 +76,7 @@ Feature: Test de API súper simple
 
   @id:6 @EscenarioCreaPersonajeFaltanCamposObligatoriosDuplicado
   Scenario: Intenta crear personaje con campos requeridos faltantes duplicado
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters'
+    Given url 'http://localhost:8080/testuser/api/characters'
     And request
     """
     {
@@ -100,7 +100,7 @@ Feature: Test de API súper simple
 
   @id:7 @EscenarioActualizarPersonaje
   Scenario: Actualizar un personaje existente
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters/1610'
+    Given url 'http://localhost:8080/testuser/api/characters/1610'
     And request
     """
     {
@@ -125,7 +125,7 @@ Feature: Test de API súper simple
 
   @id:8 @EscenarioActualizarPersonajeInexistente#
   Scenario: Intenta actualizar un personaje que no existe
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters/9999'
+    Given url 'http://localhost:8080/testuser/api/characters/9999'
     And request
     """
     {
@@ -146,14 +146,14 @@ Feature: Test de API súper simple
 
   @id:9 @EscenarioEliminarPersonaje#
   Scenario: Eliminar un personaje
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters/1610'
+    Given url 'http://localhost:8080/testuser/api/characters/1610'
     When method DELETE
     Then status 204
     And match response == ''
 
   @id:10 @EscenarioEliminarPersonaje#
   Scenario:  Intentar eliminar un personaje inexistente
-    Given url 'http://bp-se-test-cabcd9b246a5.herokuapp.com/testuser/api/characters/9999'
+    Given url 'http://localhost:8080/testuser/api/characters/9999'
     When method DELETE
     Then status 404
     And match response ==
